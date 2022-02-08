@@ -74,7 +74,6 @@ const Post = ({data}) => {
                     <Avatar
                         src={`https://avatars.dicebear.com/api/initials/${getUserName()}.svg`}
                         alt={`Avatar for user ${data.userId}`}
-                        // variant="rounded"
                         sx={{ width: 24, height: 24, margin: '0 .2em'}}
                     />
                     {`${getUserName()} ${calcDate()}`}

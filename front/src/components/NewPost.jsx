@@ -13,11 +13,7 @@ const mediaType = [
     {
         value: 'IMAGE',
         label: 'Image'
-    },
-    // {
-    //     value: 'VIDEO',
-    //     label: 'Vidéo'
-    // }
+    }
 ]
 
 const NewPost = ({ fetchPost, setNewPost }) => {

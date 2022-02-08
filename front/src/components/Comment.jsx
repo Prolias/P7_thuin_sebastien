@@ -108,7 +108,6 @@ const Comment = ({mainComment, comments, idPost, self, fetchCom}) => {
                     <Avatar
                         src={`https://avatars.dicebear.com/api/initials/${getUserName()}.svg`}
                         alt={`Avatar for user ${mainComment.userId}`}
-                        // variant="rounded"
                         sx={{ width: 24, height: 24, margin: '0 .2em'}}
                         />
                     {`${getUserName()} • ${calcDate()}`}
