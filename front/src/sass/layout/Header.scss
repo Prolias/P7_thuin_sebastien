@@ -1,0 +1,16 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    background-color: rgb(200, 200, 200);
+    &__logo {
+        img {
+            width: 5em;
+        }
+    }
+    &__nav {
+        display: flex;
+        gap: 1em;
+    }
+}

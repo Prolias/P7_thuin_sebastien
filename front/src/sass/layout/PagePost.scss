@@ -1,0 +1,44 @@
+.post {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+    gap: 1em;
+    &__action_button {
+        display: flex;
+        gap: .5em;
+        > * {
+            flex-grow: 1;
+        }
+    }
+    &__poster {
+        display: flex;
+    }
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+    }
+    &__contentEdit {
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+        &__field {
+            display: flex;
+            flex-direction: column;
+            gap: .5em;
+        }
+        &__action {
+            display: flex;
+            gap: .5em;
+            > * {
+                flex-grow: 1;
+            }
+        }
+    }
+    &__newComment {
+        margin: .5em 1em;
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+    }
+}

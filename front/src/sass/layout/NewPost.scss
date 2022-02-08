@@ -1,0 +1,19 @@
+.createPost {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    &__media {
+        display: flex;
+        gap: .5em;
+        &__content {
+            flex-grow: 1;
+        }
+    }
+    &__action {
+        display: flex;
+        gap: .5em;
+        > * {
+            flex-grow: 1;
+        }
+    }
+}

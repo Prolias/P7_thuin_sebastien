@@ -1,0 +1,10 @@
+.main {
+    margin: 2em;
+    &__create {
+        display: flex;
+        margin-bottom: 1em;
+        > * {
+            flex-grow: 1;
+        }
+    }
+}
