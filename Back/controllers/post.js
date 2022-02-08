@@ -3,7 +3,7 @@ const { decodeToken } = require('../utils/decodeToken.js');
 
 exports.getAllPosts = async (req, res) => {
     const Posts = await models.Post.findAll()
-    if(Posts.length == 0) return errorNotFound(res, null)
+    if(Posts.length == 0) return res.status(404).json({error : 'No post found with this id!'})
     return res.status(200).json({data: Posts})
 }
 
@@ -11,7 +11,7 @@ exports.getOnePost = async (req, res) => {
     const Post = await models.Post.findOne({
         where: {id: req.params.id}
     })
-    if(Post === null) return errorNotFound(res, req.params.id)
+    if(Post === null) return res.status(404).json({error : 'No post found for this id!'})
     return res.status(200).json({data: Post})
 }
 
@@ -42,7 +42,7 @@ exports.modifyPost = async (req, res) => {
             id: req.params.id
         }
     })
-    if(modifiedPost == 0) return errorNotFound(res, req.params.id)
+    if(modifiedPost == 0) return res.status(404).json({error : 'No post found for this id!'})
     return res.status(200).json({message: 'Post modified with success!'})
 }
 
@@ -55,12 +55,6 @@ exports.deleteOnePost = async (req, res) => {
             userId: userId
         }
     })
-    if(deletedPost == 0) return errorNotFound(res, req.params.id)
+    if(deletedPost == 0) return res.status(404).json({error : 'No post found for this id!'})
     return res.status(200).json({ message: 'Post deleted with success!'})
-}
-
-const errorNotFound = (res, id) => {
-    let errorMessage = 'No posts found!'
-    if(id !== null) errorMessage = `No post found for the id : ${id}!`
-    return res.status(404).json({error : errorMessage})
 }

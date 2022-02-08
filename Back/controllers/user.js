@@ -5,7 +5,7 @@ exports.getAllUser = async (req, res) => {
     const allUser = await models.User.findAll({
         attributes: { exclude: ['password'] }
     })
-    if (allUser === null) return errorNotFound(res, null)
+    if (allUser === null) return res.status(404).json({error : 'No user found on database!'})
     return res.status(200).json({data: allUser})
 }
 
@@ -16,7 +16,7 @@ exports.getOneUser = async (req, res) => {
         },
         attributes: { exclude: ['password'] }
     })
-    if (User === null) return errorNotFound(res, req.params.id)
+    if (User === null) return res.status(404).json({error : 'No user found for this id!'})
     return res.status(200).json({data: User})
 }
 
@@ -29,7 +29,7 @@ exports.getMyProfile = async (req, res) => {
         },
         attributes: { exclude: ['password'] }
     })
-    if (User === null) return errorNotFound(res, req.params.id)
+    if (User === null) return res.status(404).json({error : 'No user found for this id!'})
     return res.status(200).json({data: User})
 }
 
@@ -43,7 +43,7 @@ exports.modifyUser = async (req, res) => {
             id: userId
         }
     })
-    if(getUser == 0) return errorNotFound(res, userId)
+    if(getUser == 0) return res.status(404).json({error : 'No user found for this id!'})
     return res.status(200).json({message: 'User modified with success!'})
 }
 
@@ -57,12 +57,6 @@ exports.deleteOneUser = async (req, res) => {
         cascade: true
     })
     console.log(deletedUser)
-    if(deletedUser == 0) return errorNotFound(res, userId)
+    if(deletedUser == 0) return res.status(404).json({error : 'No user found for this id!'})
     return res.status(200).json({message: 'User Deleted with success!'})
-}
-
-const errorNotFound = (res, id) => {
-    let errorMessage = 'No users found!'
-    if(id !== null) errorMessage = `No user found for the id : ${id}!`
-    return res.status(404).json({error : errorMessage})
 }

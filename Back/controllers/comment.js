@@ -6,11 +6,10 @@ exports.getAllComments = async (req, res) => {
         const Comments = await models.Comments.findAll({
             include: models.Comments,
             where: {
-                postId: req.params.id,
-                // mainCommentId: null
+                postId: req.params.id
             }
         })
-        if(Comments.length == 0) return errorNotFound(res, null)
+        if(Comments.length == 0) return res.status(404).json({error : 'No comments yet for this post!' })
         return res.status(200).json({data: Comments})
     }
     catch(err) {
@@ -41,7 +40,7 @@ exports.getAllCommentsFromComment = async (req, res) => {
                 mainCommentId: req.params.idCom
             }
         })
-        if(Comments.length == 0) return errorNotFound(res, req.params.idCom)
+        if(Comments.length == 0) return res.status(404).json({error : `No response to the comment ${req.params.idCom} yet!`})
         return res.status(200).json({data: Comments})
     }
     catch(err) {
@@ -60,7 +59,7 @@ exports.modifyOneComment = async (req, res) => {
             userId: userId
         }
     })
-    if(modifiedComment == 0) return errorNotFound(res, req.params.id)
+    if(modifiedComment == 0) return res.status(404).json({error : 'No comment found for this id!'})
     return res.status(200).json({message: 'Comment modified with success!'})
 }
 
@@ -73,12 +72,6 @@ exports.deleteOneComment = async (req, res) => {
             userId: userId
         }
     })
-    if(deletedComment == 0) return errorNotFound(res, req.params.idCom)
+    if(deletedComment == 0) return res.status(404).json({error : 'No comment found for this id!'})
     return res.status(200).json({message: `Comment deleted with success!`})
-}
-
-const errorNotFound = (res, id) => {
-    let errorMessage = 'No comments found!'
-    if(id !== null) errorMessage = `No comments found for the id : ${id}!`
-    return res.status(404).json({error : errorMessage})
 }
