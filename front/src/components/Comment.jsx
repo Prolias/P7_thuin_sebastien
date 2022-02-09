@@ -18,7 +18,7 @@ const Comment = ({mainComment, comments, idPost, self, fetchCom}) => {
 
     useEffect(() => {
         setComment(comments.filter(comment => comment.mainCommentId === mainComment.id))
-        setCommenter(mainComment.userId === self.id)
+        if (self) setCommenter(mainComment.userId === self.id)
 
         const fetchUser = async () => {
             const res = await fetch(`${urlApi}/user/${mainComment.userId}`)
@@ -167,7 +167,7 @@ const Comment = ({mainComment, comments, idPost, self, fetchCom}) => {
                 </>
             }
             <Box>
-            {!response &&
+            {!response && self &&
                 <Button onClick={() => setResponse(!response)}>Répondre</Button>
             }
             {commenter &&

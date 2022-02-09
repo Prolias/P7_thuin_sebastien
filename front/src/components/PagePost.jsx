@@ -62,7 +62,7 @@ const PagePost = () => {
             }
         }
 
-        fetchSelf()
+        if(token) fetchSelf()
         fetchPost()
         fetchComments()
     }, [idPost, navigate, token]);
@@ -119,8 +119,6 @@ const PagePost = () => {
             getUserName()
         }
     }, [post, user])
-
-
 
     const submitComment = async () => {
         const response = await fetch(`${urlApi}/post/${idPost}/comment/`, {
@@ -242,16 +240,18 @@ const PagePost = () => {
                             </Box>
                         </Box>
                     }
-                    <Box className="post__newComment">
-                        <TextField
-                            label="Ajouter un commentaire"
-                            value={message}
-                            onChange={e => setMessage(e.target.value)}
-                        />
-                        <Button variant="contained" onClick={submitComment} disabled={!message}>Ajouter un commentaire</Button>
-                    </Box>
+                    {self &&
+                        <Box className="post__newComment">
+                            <TextField
+                                label="Ajouter un commentaire"
+                                value={message}
+                                onChange={e => setMessage(e.target.value)}
+                            />
+                            <Button variant="contained" onClick={submitComment} disabled={!message}>Ajouter un commentaire</Button>
+                        </Box>
+                    }
                     {comments && mainComments &&
-                        <Box>
+                        <>
                             {mainComments.map(mainComment => 
                                 <Comment
                                     key={mainComment.id}
@@ -262,7 +262,7 @@ const PagePost = () => {
                                     fetchCom={fetchComments}
                                 />
                             )}
-                        </Box>
+                        </>
                     }
                 </Box>
             }

@@ -5,7 +5,7 @@ import '../sass/layout/Post.scss'
 
 const apiUrl = 'http://localhost:3000/api'
 
-const Post = ({data}) => {
+const Post = ({data, self}) => {
 
     const [user, setUser] = useState({})
 
