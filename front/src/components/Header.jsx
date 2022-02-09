@@ -30,11 +30,9 @@ const Header = ({logged, setLogged}) => {
                     </>
                 }
                 {!logged &&
-                    <Link to="login">
-                        <Button variant="contained" color="success">
-                            Se connecter / S'inscrire
-                        </Button>
-                    </Link>
+                    <Button variant="contained" color="success" onClick={() => navigate('/login')}>
+                        Se connecter / S'inscrire
+                    </Button>
                 }
             </Box>
         </header>

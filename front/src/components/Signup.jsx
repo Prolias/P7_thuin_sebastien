@@ -1,8 +1,7 @@
 import { Alert, Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import '../sass/layout/Login_signup.scss'
-import { isLogged } from "../utils/logged"
 
 const apiUrl = 'http://localhost:3000/api'
 
@@ -12,9 +11,8 @@ const Signup = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(isLogged()) {
-            navigate('/')
-        };
+        const token = localStorage.getItem('token')
+        if(token) navigate('/')
     }, [navigate]);
     
 
@@ -50,11 +48,9 @@ const Signup = () => {
                 <TextField required label="Email" name="email"/>
                 <TextField required type="password" label="Mot de passe" name="password" />
                 <Box className="formLog__buttons">
-                    <Link to="/login">
-                        <Button color="primary">
-                            Se connecter
-                        </Button>
-                    </Link>
+                    <Button color="primary" onClick={() => navigate('/login')}>
+                        Se connecter
+                    </Button>
 
                     <Button type="submit" color="success" variant="contained">
                         S'inscrire
