@@ -131,11 +131,8 @@ const PagePost = () => {
                 message: message
             })
         })
-
-        const result = await response.json()
-        console.log(result)
-
-        fetchComments()
+        
+        if(response.ok) fetchComments()
     }
 
     const deletePost = async () => {

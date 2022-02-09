@@ -45,7 +45,7 @@ const Main = () => {
                 <>
                     {!newPost && 
                         <Box className="main__create">
-                            <Button color='success' variant='contained' onClick={() => setNewPost(true)}>Créer un nouveau post</Button>
+                            <Button variant='contained' onClick={() => setNewPost(true)}>Créer un nouveau post</Button>
                         </Box>
                     }
                     {newPost && 

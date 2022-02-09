@@ -6,10 +6,26 @@ const Footer = () => {
     return (
         <footer className="footer">
             <Box>
-                Box footer 1
+                <Box>
+                Qui sommes nous ?
+                </Box>
+                <Box>
+                Mentions légales
+                </Box>
+                <Box>
+                    Nous contacter
+                </Box>
             </Box>
             <Box>
-                Box footer 2
+                <Box>
+                    Facebook
+                </Box>
+                <Box>
+                    Twitter
+                </Box>
+                <Box>
+                    LinkedIn
+                </Box>
             </Box>
         </footer>
     )

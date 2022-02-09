@@ -15,7 +15,7 @@ const Header = ({logged, setLogged}) => {
         <header className="header">
             <Box className="header__logo">
                 <Link to="/" >
-                    <img src={require('../assets/icon-left-font-monochrome-black.webp')} alt="" />
+                    <img src={require('../assets/icon-left-font-monochrome-white.webp')} alt="" />
                 </Link>
             </Box>
             <Box className="header__nav">
