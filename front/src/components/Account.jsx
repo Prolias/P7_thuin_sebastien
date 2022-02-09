@@ -7,7 +7,6 @@ import frLocale from 'date-fns/locale/fr'
 
 import '../sass/layout/Account.scss'
 import { useNavigate } from 'react-router-dom';
-import { isLogged } from '../utils/logged';
 
 const urlApi = 'http://localhost:3000/api'
 
@@ -15,9 +14,8 @@ const Account = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!isLogged()) {
-            navigate('/')
-        }
+        const token = localStorage.getItem('token')
+        if(!token) navigate('/')
     }, [navigate])
 
     const [alert,setAlert] = useState({})
