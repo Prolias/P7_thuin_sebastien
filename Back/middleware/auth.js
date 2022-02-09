@@ -1,7 +1,5 @@
 const { decodeToken } = require('../utils/decodeToken');
 
-// import { decodeToken } from '../utils/decodeToken'
-
 require('dotenv').config();
 
 module.exports = (req, res, next) => {
