@@ -1,4 +1,4 @@
-import { Alert, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Snackbar, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { DatePicker, LocalizationProvider } from '@mui/lab'
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -18,7 +18,8 @@ const Account = () => {
         if(!token) navigate('/')
     }, [navigate])
 
-    const [alert,setAlert] = useState({})
+    const [alert, setAlert] = useState({})
+    const [deleted, setDeleted] = useState(false)
     const [user, setUser] = useState(null)
 
     const token = localStorage.getItem('token')
@@ -40,6 +41,22 @@ const Account = () => {
 
         const result = await response.json()
         setAlert(result)
+    }
+
+    const deleteUser = async () => {
+        const response = await fetch(`${urlApi}/user/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            }
+        })
+
+        if(response.ok) {
+            setDeleted(true)
+            localStorage.removeItem('token')
+        }
+        
     }
 
     useEffect(() => {
@@ -89,16 +106,33 @@ const Account = () => {
                     />
                 </LocalizationProvider>
             </Box>
-            <Button variant="contained" onClick={updateUser}>
-                Mettre à jour
-            </Button>
+            <Box className="formUser__action">
+                <Button variant="contained" onClick={updateUser}>
+                    Mettre à jour
+                </Button>
+                <Button variant="contained" color="error" onClick={deleteUser}>
+                    Supprimer le compte
+                </Button>
+            </Box>
             {alert.error &&
-                    <Alert severity="error">{alert.error}</Alert>
-                }
-                {alert.message &&
-                    <Alert severity="success">{alert.message}</Alert>
-                }
-        </Box>)
+                <Alert severity="error">{alert.error}</Alert>
+            }
+            {alert.message &&
+                <Alert severity="success">{alert.message}</Alert>
+            }
+            <Snackbar
+                anchorOrigin={{horizontal: "center", vertical: "top"}}
+                open={deleted}
+                autoHideDuration={6000}
+                onClose={() => navigate('/')}
+
+            >
+                <Alert severity="success" sx={{ width: '100%' }}>
+                    Utilisateur supprimé avec succès !
+                </Alert>
+            </Snackbar>
+        </Box>
+    )
     else return (
         <Box className="waitingData">
             <CircularProgress color='warning'/>

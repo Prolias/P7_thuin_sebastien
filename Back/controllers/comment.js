@@ -66,7 +66,8 @@ exports.modifyOneComment = async (req, res) => {
 exports.deleteOneComment = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     const userId = decodeToken(token);
-    const deletedComment = await models.Comment.destroy({
+    console.log(`IdCom = ${req.params.idCom}\n userId = ${userId}`)
+    const deletedComment = models.Comments.destroy({
         where: {
             id: req.params.idCom,
             userId: userId

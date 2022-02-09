@@ -56,7 +56,6 @@ exports.deleteOneUser = async (req, res) => {
         },
         cascade: true
     })
-    console.log(deletedUser)
     if(deletedUser == 0) return res.status(404).json({error : 'No user found for this id!'})
     return res.status(200).json({message: 'User Deleted with success!'})
 }

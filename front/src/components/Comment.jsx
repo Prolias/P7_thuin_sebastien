@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Avatar } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import '../sass/layout/Comment.scss'
 
@@ -15,6 +16,8 @@ const Comment = ({mainComment, comments, idPost, self, fetchCom}) => {
     const [modifCom, setModifCom] = useState(false)
 
     const token = localStorage.getItem('token')
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         setComment(comments.filter(comment => comment.mainCommentId === mainComment.id))
@@ -75,7 +78,7 @@ const Comment = ({mainComment, comments, idPost, self, fetchCom}) => {
         if(res.ok) {
             setResponse(!response)
             
-            fetchCom()
+            navigate(0)
         }
     }
 
@@ -93,6 +96,19 @@ const Comment = ({mainComment, comments, idPost, self, fetchCom}) => {
         if(res.ok){
             mainComment.message = comMessage
             setModifCom(false)
+        }
+    }
+
+    const deleteComment = async () => {
+        const res = await fetch(`${urlApi}/post/${idPost}/comment/${mainComment.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        })
+        if(res.ok) {
+            navigate(0)
         }
     }
 
@@ -180,7 +196,7 @@ const Comment = ({mainComment, comments, idPost, self, fetchCom}) => {
                             Modifier
                         </Button>
                     }
-                    <Button color="error">Supprimer</Button>
+                    <Button color="error" onClick={() => deleteComment()}>Supprimer</Button>
                 </>
             }
             </Box>
